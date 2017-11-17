@@ -1,0 +1,14 @@
+# Object Files
+*.o
+
+# Main Executable
+Chomp
+
+# Cachegrind Files
+cachegrind*
+
+# Debug files
+*.dSYM/
+
+
+*.out
