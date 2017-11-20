@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<locale.h>
+#include<time.h>
 #include"Pos.h"
 #include"Move.h"
 #include "HumanInteraction.h"
@@ -97,8 +99,9 @@ Did you really think your tiny human mind could defeat a computer?
  * 5) for fun: try to understand in full detail how their hashtable and hashfunction works
  */
 
-void startGame(int playComputer, int humanFirst, int pretty, Pos* p) {
+void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* elapsedTime) {
   int player = 1;
+  int firstComputerTurn = 1;
   int computerTurn = playComputer && !humanFirst;
   while(p) {
     player = (player + 1) % 2;
@@ -106,10 +109,18 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p) {
     printPos(p, pretty, stdout);
     if(computerTurn && playComputer) {
       printf("Computer chomps\n");
-      //Haven't initialized m->coords, so minimax segfaults - fixed
       Move m;
       m.coords = malloc(p->n * sizeof(int));
-      miniMax(p, 1, 1, &m);
+      if(firstComputerTurn) {
+        time_t startTime = time(NULL);
+        miniMax(p, 1, 1, &m);
+        time_t stopTime = time(NULL);
+        *elapsedTime = stopTime - startTime;
+        firstComputerTurn = 0;
+      }
+      else {
+        miniMax(p, 1, 1, &m);
+      }   
       printMove(&m);
       makeMove(&p, &m);
       free(m.coords);
@@ -123,7 +134,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p) {
     computerTurn = !computerTurn;
   }
   if(computerTurn && playComputer) {
-    printf("Did you really think your tiny human mind could defeat a computer?\n");
+    printf("Did you really think your primitive human mind could defeat a computer?\n");
   }
   else if(!computerTurn && playComputer) {
     printf("\nWhoa. How could you possibly defeat a computer???\n");
@@ -155,12 +166,19 @@ int main(int argc, char* argv[]) {
     losingPositions = create_hashtable(1000000, hashPosition, equalPositions, freeKeyPos, freeLosVal);
     winningPositions = create_hashtable(1000000, hashPosition, equalPositions, freeKeyPos, freeMove);
   }
+  time_t elapsedTime;
   Pos* p = newPos(dims, n);
-  startGame(playComputer,humanFirst,pretty, p);
+  startGame(playComputer,humanFirst,pretty, p, &elapsedTime);
+  setlocale(LC_NUMERIC, "");
+  if(playComputer) {
+    printf("Time taken to compute all positions: %'ld seconds\n", elapsedTime);
+  }
   if(losingPositions) {
+    printf("Losing positions hashed: %'u\n", hashtable_count(losingPositions));
     hashtable_destroy(losingPositions, 1);
   }
   if(winningPositions) {
+    printf("Winning positions hashed: %'u\n", hashtable_count(winningPositions));
     hashtable_destroy(winningPositions, 1);
   }
   return 0;
