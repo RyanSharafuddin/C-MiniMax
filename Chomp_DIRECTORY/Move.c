@@ -1,7 +1,11 @@
-#include "Move.h"
-#include "ArrayUtilities.h"
+#include "../Move.h"
+#include "../ArrayUtilities.h"
+#include "./definitions.h"
 #include<string.h>
 
+void allocateMoveFields(Pos* p, Move* m) {
+  m->coords = malloc(p->n * sizeof(int));
+}
 
 int moveEquals(Move* a, Move* b) {
   return ((a->n == b->n) && (memcmp(a->coords, b->coords, (a->n) * sizeof(int)) == 0));

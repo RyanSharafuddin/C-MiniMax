@@ -31,6 +31,8 @@ int* getDims(int* n) {
   sscanf(str, "%d", n);
   return getNTuple(*n, "Enter length along dimension");
 }
+
+//n is number of dimensions
 Move* getHumanMove(int n) {
   Move* m = malloc(sizeof(Move));
   m->n = n;

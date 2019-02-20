@@ -1,22 +1,24 @@
 
 #if you want to profile with Valgrind or Cachegrind or gprof, add -pg flag to CFLAGS
 CFLAGS = -Wall -O3 -std=c99
-OBJECTS = Chomp.o Pos.o Move.o HumanInteraction.o Bot.o ArrayUtilities.o hashtable.o hashtable_itr.o myHash.o
+GAME = Chomp
+GAME_DIRECTORY = $(GAME)_DIRECTORY
+OBJECTS = playGame.o Pos.o Move.o HumanInteraction.o Bot.o ArrayUtilities.o hashtable.o hashtable_itr.o myHash.o
 
 all: $(OBJECTS) Makefile
-	cc $(CFLAGS) -lm $(OBJECTS) -o Chomp
+	cc $(CFLAGS) -lm $(OBJECTS) -o $(GAME)
 
 HumanInteraction.o: HumanInteraction.c HumanInteraction.h Makefile
 	cc $(CFLAGS) -c HumanInteraction.c
 
-Move.o: Move.c Move.h Makefile
-	cc $(CFLAGS) -c Move.c
+Move.o: $(GAME_DIRECTORY)/Move.c Move.h $(GAME_DIRECTORY)/definitions.h Makefile
+	cc $(CFLAGS) -c $(GAME_DIRECTORY)/Move.c
 
-Chomp.o: Chomp.c Makefile
-	cc $(CFLAGS) -c Chomp.c
+playGame.o: playGame.c Makefile
+	cc $(CFLAGS) -c playGame.c
 
-Pos.o: Pos.c Pos.h Makefile
-	cc $(CFLAGS) -c Pos.c
+Pos.o: $(GAME)_DIRECTORY/Pos.c Pos.h $(GAME_DIRECTORY)/definitions.h Makefile
+	cc $(CFLAGS) -c $(GAME)_DIRECTORY/Pos.c
 
 Bot.o: Bot.c Bot.h Makefile
 	cc $(CFLAGS) -c Bot.c

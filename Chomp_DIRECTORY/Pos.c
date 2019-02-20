@@ -1,5 +1,12 @@
-#include "Pos.h"
-#include "Move.h"
+#include "../Pos.h"
+#include "../Move.h"
+#include "./definitions.h"
+
+//internal utility functions declarations
+void shorten(Pos* p, int index, int shortenedVal); //tips over and shortens
+void makeMoveHelper(int* dims, int n, int* rows, int zeros, int* moveCoords);
+void printPosHelper(Pos* pos, int pretty, int n, int* start, int callNum, FILE* fp);
+void printRow(int rowSize, int rowWidth, FILE* fp);
 
 Pos* newPos(int* dims, size_t n) {
   Pos* p = malloc(sizeof(Pos));

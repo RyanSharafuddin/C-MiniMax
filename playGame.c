@@ -108,9 +108,9 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
     printf("\n");
     printPos(p, pretty, stdout);
     if(computerTurn && playComputer) {
-      printf("Computer chomps\n");
+      printf("Computer moves:\n");
       Move m;
-      m.coords = malloc(p->n * sizeof(int));
+      allocateMoveFields(p, &m);
       if(firstComputerTurn) {
         time_t startTime = time(NULL);
         miniMax(p, 1, 1, &m);
@@ -120,7 +120,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       }
       else {
         miniMax(p, 1, 1, &m);
-      }   
+      }
       printMove(&m);
       makeMove(&p, &m);
       free(m.coords);
@@ -168,7 +168,7 @@ int main(int argc, char* argv[]) {
   }
   time_t elapsedTime;
   Pos* p = newPos(dims, n);
-  startGame(playComputer,humanFirst,pretty, p, &elapsedTime);
+  startGame(playComputer, humanFirst, pretty, p, &elapsedTime);
   setlocale(LC_NUMERIC, "");
   if(playComputer) {
     printf("Time taken to compute all positions: %'ld seconds\n", elapsedTime);
