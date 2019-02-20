@@ -12,3 +12,6 @@ cachegrind*
 
 
 *.out
+
+.floo
+.flooignore
