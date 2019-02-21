@@ -25,7 +25,7 @@ void printPos(Pos* pos, int pretty, FILE* fp);
 void makeMove(Pos** p, struct Move* m);
 int equalPositions(Pos* a, Pos* b);
 unsigned int hashPosition(Pos* p);
-
+//TODO: int gameFinished(Pos* p)
 
 //freeing stuff
 //IMPORTANT: MAKE DECISION ON WHETHER OR NOT TO FREE DIMS BASED ON WHETHER COPY DIMS OR NOT

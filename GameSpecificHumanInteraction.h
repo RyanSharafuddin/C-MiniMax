@@ -3,8 +3,11 @@
 
 #include "./Move.h"
 #include "./Pos.h"
+#include "./HumanInteraction.h"
 
 Move* getHumanMove(int n);
 Move* getValidHumanMove(Pos* p);
+
+//TODO: Pos* humanInputPos();
 
 #endif

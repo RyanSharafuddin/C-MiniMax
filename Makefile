@@ -1,5 +1,6 @@
 
 #if you want to profile with Valgrind or Cachegrind or gprof, add -pg flag to CFLAGS
+# add -g to debug with gdb
 CFLAGS = -Wall -O3 -std=c99
 GAME = Chomp
 GAME_DIRECTORY = $(GAME)_DIRECTORY

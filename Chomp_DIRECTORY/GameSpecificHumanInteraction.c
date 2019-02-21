@@ -1,24 +1,7 @@
 #include "../GameSpecificHumanInteraction.h"
-#include "../Pos.h"
-#include "../Move.h"
 #include "./definitions.h"
 #define MAX_DIGITS 20
-//internal utility functions
-int* getNTuple(int n, char* prompt);
 
-int* getNTuple(int n, char* prompt) {
-  int* tuple = malloc(n * sizeof(int));
-  for(int i = 0; i < n; i++) {
-    printf("%s X_%d: ", prompt, i);
-    fflush(stdin);
-    char str[MAX_DIGITS];
-    fgets(str, MAX_DIGITS, stdin);
-    int x;
-    sscanf(str, "%d", &x);
-    tuple[i] = x;
-  }
-  return tuple;
-}
 
 //n is number of dimensions
 Move* getHumanMove(int n) {

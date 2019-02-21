@@ -104,8 +104,8 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
   int player = 1;
   int firstComputerTurn = 1;
   int computerTurn = playComputer && !humanFirst;
-  while(p) {
-    player = (player + 1) % 2;
+  while(p) { //TODO: while(!gameFinished())
+    player = (player + 1) % 2; //TODO (have whose turn it is in the Pos, since not all games alternate turns)
     printf("\n");
     printPos(p, pretty, stdout);
     if(computerTurn && playComputer) {
@@ -132,8 +132,9 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       makeMove(&p, m);
       freeMove(m);
     }
-    computerTurn = !computerTurn;
+    computerTurn = !computerTurn; //TODO see above todo about not alternating turns
   }
+  //TODO: generalize the below to account for other games
   if(computerTurn && playComputer) {
     printf("Did you really think your primitive human mind could defeat a computer?\n");
   }
@@ -145,16 +146,17 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
   }
 }
 
-hashtable* losingPositions = NULL;
-hashtable* winningPositions = NULL;
-int in = 1;
-
 void freeKeyPos(Pos* p) {
   freePos(&p);
 }
 void freeLosVal(void* v) {
 //need to define this to satisfy what I wrote for create_hashtable. Los Val is not a pointer to the heap.
 }
+
+hashtable* losingPositions = NULL;
+hashtable* winningPositions = NULL;
+int in = 1;
+
 
 int main(int argc, char* argv[]) {
   int n;
