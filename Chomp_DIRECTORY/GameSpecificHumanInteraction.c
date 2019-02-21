@@ -31,3 +31,9 @@ Move* getValidHumanMove(Pos* p) {
   freeMovesList(mList, numMoves);
   return hm;
 }
+
+Pos* humanInputPos() {
+  int n;
+  int* dims = getDims(&n);
+  return newPos(dims, n);
+}

@@ -104,7 +104,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
   int player = 1;
   int firstComputerTurn = 1;
   int computerTurn = playComputer && !humanFirst;
-  while(p) { //TODO: while(!gameFinished())
+  while(p) { //TODO: while(!gameFinished(p))
     player = (player + 1) % 2; //TODO (have whose turn it is in the Pos, since not all games alternate turns)
     printf("\n");
     printPos(p, pretty, stdout);
@@ -127,7 +127,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       free(m.coords);
     }
     else {
-      printf("Player %d turn:\n", player + 1);
+      printf("Player %d turn:\n", player + 1); //TODO see above todo about not alternating turns
       Move* m = getValidHumanMove(p);
       makeMove(&p, m);
       freeMove(m);
@@ -159,8 +159,7 @@ int in = 1;
 
 
 int main(int argc, char* argv[]) {
-  int n;
-  int* dims = getDims(&n);
+  Pos* p = humanInputPos();
   int pretty = 1;
   int playComputer = getYesNo("Would you like to play against the computer? (0/1):");
   int humanFirst = 0;
@@ -170,7 +169,6 @@ int main(int argc, char* argv[]) {
     winningPositions = create_hashtable(1000000, hashPosition, equalPositions, freeKeyPos, freeMove);
   }
   time_t elapsedTime;
-  Pos* p = newPos(dims, n);
   startGame(playComputer, humanFirst, pretty, p, &elapsedTime);
   setlocale(LC_NUMERIC, "");
   if(playComputer) {

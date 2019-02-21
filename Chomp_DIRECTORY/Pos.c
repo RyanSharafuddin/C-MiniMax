@@ -46,6 +46,8 @@ void freePos(Pos** p) {
 
 int equalPositions(Pos* a, Pos* b) {
   //debug - numRows should not be needed
+  //can do below because C short circuits - if a->dims is not equal to b->dims,
+  //then won't compare the numRows 
   if((a->n == b->n) && (memcmp(a->dims, b->dims, a->n * sizeof(int)) == 0) && (a->numRows != b->numRows)) {
     printf("NUMROWS ERROR ERROR ERROR\n");
     exit(1);

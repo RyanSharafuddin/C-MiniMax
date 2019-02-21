@@ -8,6 +8,6 @@
 Move* getHumanMove(int n);
 Move* getValidHumanMove(Pos* p);
 
-//TODO: Pos* humanInputPos();
+Pos* humanInputPos();
 
 #endif

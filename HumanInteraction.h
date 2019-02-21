@@ -3,10 +3,9 @@
 #include "Move.h"
 #include "Pos.h"
 
-// Move* getHumanMove(int n);       //Delete
-// Move* getValidHumanMove(Pos* p); //Delete
+int getInt();
 int getYesNo(char* prompt);
-//given int n, returns array of that many ints 
+//given int n, returns array of that many ints
 int* getNTuple(int n, char* prompt);
 
 //Puts number of dims into address pointed to by n and returns pointer to dim array;
