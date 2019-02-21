@@ -1,5 +1,5 @@
 #include "Bot.h"
-
+#include "Chomp_DIRECTORY/definitions.h" //TODO delete later
 
 extern hashtable* losingPositions;
 extern hashtable* winningPositions;
@@ -179,7 +179,7 @@ int miniMax(Pos* p, int computer, int depth, Move* m) {
     // printf("This is a known winning position. Return\n");
     return (computer) ? 1 : -1;
   }
- 
+
   if(known && !winning) {
     //DEBUG
     // printf("This is a known losing position. Return\n");
