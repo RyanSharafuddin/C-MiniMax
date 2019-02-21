@@ -3,7 +3,8 @@
 CFLAGS = -Wall -O3 -std=c99
 GAME = Chomp
 GAME_DIRECTORY = $(GAME)_DIRECTORY
-OBJECTS = playGame.o Pos.o Move.o HumanInteraction.o Bot.o ArrayUtilities.o hashtable.o hashtable_itr.o myHash.o
+OBJECTS = playGame.o Pos.o Move.o HumanInteraction.o Bot.o ArrayUtilities.o \
+ 					hashtable.o hashtable_itr.o myHash.o GameSpecificHumanInteraction.o
 
 all: $(OBJECTS) Makefile
 	cc $(CFLAGS) -lm $(OBJECTS) -o $(GAME)
@@ -11,10 +12,13 @@ all: $(OBJECTS) Makefile
 HumanInteraction.o: HumanInteraction.c HumanInteraction.h Makefile
 	cc $(CFLAGS) -c HumanInteraction.c
 
+GameSpecificHumanInteraction.o: $(GAME_DIRECTORY)/GameSpecificHumanInteraction.c  GameSpecificHumanInteraction.h Move.h Pos.h Makefile
+	cc $(CFLAGS) -c $(GAME_DIRECTORY)/GameSpecificHumanInteraction.c
+
 Move.o: $(GAME_DIRECTORY)/Move.c Move.h $(GAME_DIRECTORY)/definitions.h Makefile
 	cc $(CFLAGS) -c $(GAME_DIRECTORY)/Move.c
 
-playGame.o: playGame.c Makefile
+playGame.o: playGame.c Pos.h Move.h Bot.h myHash.h HumanInteraction.h Makefile
 	cc $(CFLAGS) -c playGame.c
 
 Pos.o: $(GAME)_DIRECTORY/Pos.c Pos.h $(GAME_DIRECTORY)/definitions.h Makefile

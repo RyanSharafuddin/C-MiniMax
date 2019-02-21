@@ -3,16 +3,11 @@
 #include "Move.h"
 #include "Pos.h"
 
-Move* getHumanMove(int n);
-Move* getValidHumanMove(Pos* p);
+// Move* getHumanMove(int n);       //Delete
+// Move* getValidHumanMove(Pos* p); //Delete
 int getYesNo(char* prompt);
 
 //Puts number of dims into address pointed to by n;
 int* getDims(int* n);
-
-//internal utility functions
-int* getNTuple(int n, char* prompt);
-
-
 
 #endif

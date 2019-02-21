@@ -5,6 +5,7 @@
 #include"Pos.h"
 #include"Move.h"
 #include "HumanInteraction.h"
+#include "GameSpecificHumanInteraction.h"
 #include"Bot.h"
 #include"myHash.h"
 #include "Hashtable_Stuff/hashtable.h"
