@@ -7,6 +7,10 @@ void allocateMoveFields(Pos* p, Move* m) {
   m->coords = malloc(p->n * sizeof(int));
 }
 
+void deallocateMoveFields(Move* m) {
+  free(m->coords);
+}
+
 int moveEquals(Move* a, Move* b) {
   return ((a->n == b->n) && (memcmp(a->coords, b->coords, (a->n) * sizeof(int)) == 0));
 }

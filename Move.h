@@ -16,7 +16,10 @@ typedef struct Move {
 Move* getMoves(Pos* p, int* numMoves);
 Move* copyMove(Move* m);
 int moveEquals(Move* a, Move* b);
+//Given an already allocated pointer to a Move, allocate its fields
 void allocateMoveFields(Pos* p, Move* m);
+//does not deallocate m, just its fields 
+void deallocateMoveFields(Move* m);
 /* Given a Move* set that already has enough space allocated (including for
  * coords), this function copies the stuff from copy over to set.
  */

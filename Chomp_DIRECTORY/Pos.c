@@ -47,7 +47,7 @@ void freePos(Pos** p) {
 int equalPositions(Pos* a, Pos* b) {
   //debug - numRows should not be needed
   //can do below because C short circuits - if a->dims is not equal to b->dims,
-  //then won't compare the numRows 
+  //then won't compare the numRows
   if((a->n == b->n) && (memcmp(a->dims, b->dims, a->n * sizeof(int)) == 0) && (a->numRows != b->numRows)) {
     printf("NUMROWS ERROR ERROR ERROR\n");
     exit(1);
@@ -84,6 +84,18 @@ void makeMove(Pos** p, Move* m) {
   int leadingZeros = lenBeforeNonZero(m->coords, 0, m->n-1);
   makeMoveHelper((*p)->dims, (*p)->n, (*p)->rows, leadingZeros, m->coords);
   return;
+}
+
+int playerToMove(Pos* p, int previousPlayer) {
+  return(!previousPlayer);
+}
+
+int getWinner(Pos* p, int lastPlayerToMove) {
+  return !lastPlayerToMove;
+}
+
+int gameFinished(Pos* p) {
+  return (p == NULL);
 }
 
 void shorten(Pos* p, int index, int shortenedVal) {

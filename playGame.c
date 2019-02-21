@@ -101,14 +101,15 @@ Did you really think your tiny human mind could defeat a computer?
  */
 
 void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* elapsedTime) {
-  int player = 1;
+  int player = 1; //players are 0 and 1, with 0 going first
   int firstComputerTurn = 1;
-  int computerTurn = playComputer && !humanFirst;
-  while(p) { //TODO: while(!gameFinished(p))
-    player = (player + 1) % 2; //TODO (have whose turn it is in the Pos, since not all games alternate turns)
+  int computerNumber = humanFirst; //computerNumber is 0 or 1 - i.e. the player number of the computer
+  while(!gameFinished(p)) {
+    player = playerToMove(p, player); //switching turns
+    int computerTurn = playComputer && (player == computerNumber); //is it the computer's turn?
     printf("\n");
     printPos(p, pretty, stdout);
-    if(computerTurn && playComputer) {
+    if(computerTurn) {
       printf("Computer moves:\n");
       Move m;
       allocateMoveFields(p, &m);
@@ -124,25 +125,36 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       }
       printMove(&m);
       makeMove(&p, &m);
-      free(m.coords);
+      deallocateMoveFields(&m);
     }
     else {
-      printf("Player %d turn:\n", player + 1); //TODO see above todo about not alternating turns
+      printf("Player %d turn:\n", player + 1);
       Move* m = getValidHumanMove(p);
       makeMove(&p, m);
       freeMove(m);
     }
-    computerTurn = !computerTurn; //TODO see above todo about not alternating turns
   }
-  //TODO: generalize the below to account for other games
-  if(computerTurn && playComputer) {
-    printf("Did you really think your primitive human mind could defeat a computer?\n");
+
+  int winner = getWinner(p, player);
+
+  if(winner == 2) {
+    printf("Tied game!");
+    return;
   }
-  else if(!computerTurn && playComputer) {
-    printf("\nWhoa. How could you possibly defeat a computer???\n");
+
+  if(playComputer) {
+    int computerWon = (winner == computerNumber);
+    if(computerWon) {
+      printf("Did you really think your primitive human mind could defeat a computer?\n");
+    }
+
+    else { //only other possibility is that computer lost, since we dealt with tie case above.
+      printf("You have defeated the computer!\n");
+    }
   }
+
   else {
-    printf("Player %d wins!\n", player * -1 + 2);
+    printf("Player %d wins!\n", winner + 1);
   }
 }
 
