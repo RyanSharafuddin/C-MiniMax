@@ -3,6 +3,10 @@
 #include "./definitions.h"
 #include<string.h>
 
+#define MIN_ALLOC 7
+//internal utility functions
+void getMovesHelper(struct Pos* p, int* rows, int n, Move* moves);
+
 void allocateMoveFields(Pos* p, Move* m) {
   m->coords = malloc(p->n * sizeof(int));
 }

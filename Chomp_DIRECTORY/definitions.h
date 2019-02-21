@@ -8,4 +8,9 @@ struct Pos {
   int numRows;  //all space taken up by all dimensions
 };
 
+struct Move {
+  int* coords;
+  int n; //number of dimensions
+} Move;
+
 #endif

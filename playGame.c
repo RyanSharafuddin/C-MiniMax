@@ -11,6 +11,7 @@
 #include "Hashtable_Stuff/hashtable.h"
 #include "Hashtable_Stuff/hashtable_itr.h"
 
+#define MOVE_SIZE (15 * sizeof(int))  //WARNING possibly questionable choice
 //https://github.com/ryantenney/chashtable
 
 /*
@@ -111,6 +112,8 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
     printPos(p, pretty, stdout);
     if(computerTurn) {
       printf("Computer moves:\n");
+      // char buffer[MOVE_SIZE];
+      // Move* m = (Move*) &buffer;
       Move m;
       allocateMoveFields(p, &m);
       if(firstComputerTurn) {
