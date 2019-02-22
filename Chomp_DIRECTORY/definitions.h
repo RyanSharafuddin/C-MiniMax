@@ -11,6 +11,6 @@ struct Pos {
 struct Move {
   int* coords;
   int n; //number of dimensions
-} Move;
+};
 
 #endif

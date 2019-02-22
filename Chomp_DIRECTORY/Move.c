@@ -1,11 +1,16 @@
 #include "../Move.h"
-#include "../ArrayUtilities.h"
+#include "../Pos.h"
 #include "./definitions.h"
+#include "../ArrayUtilities.h"
 #include<string.h>
 
 #define MIN_ALLOC 7
 //internal utility functions
-void getMovesHelper(struct Pos* p, int* rows, int n, Move* moves);
+void getMovesHelper(Pos* p, int* rows, int n, Move* moves);
+
+Move* getMovePtr() {
+    return malloc(sizeof(Move));
+}
 
 void allocateMoveFields(Pos* p, Move* m) {
   m->coords = malloc(p->n * sizeof(int));

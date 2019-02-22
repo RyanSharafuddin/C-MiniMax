@@ -105,6 +105,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
   int player = 1; //players are 0 and 1, with 0 going first
   int firstComputerTurn = 1;
   int computerNumber = humanFirst; //computerNumber is 0 or 1 - i.e. the player number of the computer
+  Move* compMove = getMovePtr(); //slice of memory reserved for the computer to fill in its move (not used if not playing computer)
   while(!gameFinished(p)) {
     player = playerToMove(p, player); //switching turns
     int computerTurn = playComputer && (player == computerNumber); //is it the computer's turn?
@@ -114,21 +115,20 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       printf("Computer moves:\n");
       // char buffer[MOVE_SIZE];
       // Move* m = (Move*) &buffer;
-      Move m;
-      allocateMoveFields(p, &m);
+      allocateMoveFields(p, compMove);
       if(firstComputerTurn) {
         time_t startTime = time(NULL);
-        miniMax(p, 1, 1, &m);
+        miniMax(p, 1, 1, compMove);
         time_t stopTime = time(NULL);
         *elapsedTime = stopTime - startTime;
         firstComputerTurn = 0;
       }
       else {
-        miniMax(p, 1, 1, &m);
+        miniMax(p, 1, 1, compMove);
       }
-      printMove(&m);
-      makeMove(&p, &m);
-      deallocateMoveFields(&m);
+      printMove(compMove);
+      makeMove(&p, compMove);
+      deallocateMoveFields(compMove);
     }
     else {
       printf("Player %d turn:\n", player + 1);
@@ -137,7 +137,7 @@ void startGame(int playComputer, int humanFirst, int pretty, Pos* p, time_t* ela
       freeMove(m);
     }
   }
-
+  free(compMove);
   int winner = getWinner(p, player);
 
   if(winner == 2) {

@@ -13,6 +13,7 @@ typedef struct Move Move;
 Move* getMoves(struct Pos* p, int* numMoves);
 Move* copyMove(Move* m);
 int moveEquals(Move* a, Move* b);
+Move* getMovePtr();
 //Given an already allocated pointer to a Move, allocate its fields
 void allocateMoveFields(struct Pos* p, Move* m);
 //does not deallocate m, just its fields
