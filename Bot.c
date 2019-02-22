@@ -1,6 +1,23 @@
 #include "Bot.h"
 #include "Chomp_DIRECTORY/definitions.h" //TODO delete later
-
+//TODO:
+/*
+ * 1) Condense winning and losing hashtables into one hashtable
+ *    (perhaps using int_max and negative int_max) and see if this has
+ *    an effect on performance. (also use the hashtable_itr to count winning, losing, and tied positions at end of game)
+ * 2) Then, change code to allow for possibility of
+ *    ties and see if this has an effect on performance.
+ * 3) Move gameSpecific optimizations into their own file in the game directoy,
+ *    and add a gameSpecificOptimizations.h file in this directory.
+ * 4) Delete the #include "Chomp_DIRECTORY/definitions.h" line from this file.
+ * 5) Read this: http://www.catb.org/esr/structure-packing/
+ *    and figure out how to view structures and their packing/padding at a bit level on
+ *    this machine. Then, test whether the "SuperFastHash" works on structures with padding
+ *    (i.e. does different padding bits cause the structure to be different?). Ya managed to
+ *    get around this with the Chomp Positions because ya only hashed the rows array,
+ *    but what about positions where multiple fields are important to hash? Perhaps then,
+ *    ya could hash each field, put the resulting ints in an array, and hash the ints???? To avoid padding bits influencing the hash?
+ */
 extern hashtable* losingPositions;
 extern hashtable* winningPositions;
 extern int in;
